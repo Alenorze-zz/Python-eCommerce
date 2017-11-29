@@ -36,11 +36,22 @@
     <Compile Include="ecommerce\settings.py" />
     <Compile Include="ecommerce\urls.py" />
     <Compile Include="ecommerce\wsgi.py" />
+    <Compile Include="products\admin.py" />
+    <Compile Include="products\apps.py" />
+    <Compile Include="products\migrations\__init__.py" />
+    <Compile Include="products\models.py" />
+    <Compile Include="products\tests.py" />
+    <Compile Include="products\views.py" />
+    <Compile Include="products\__init__.py" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="ecommerce\" />
+    <Folder Include="products\" />
+    <Folder Include="products\migrations\" />
+    <Folder Include="products\templates\" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="products\templates\index.html" />
     <Content Include="requirements.txt" />
     <Content Include="db.sqlite3" />
   </ItemGroup>

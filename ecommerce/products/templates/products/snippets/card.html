@@ -6,7 +6,7 @@
     {% endif %}
     <div class="card-body">
         <h4 class="card-title">{{ instance.title }}</h4>
-        <p class="card-text">{{ instance.description }}</p>
+        <p class="card-text">{{ instance.description|linebreaks|truncadewords:14 }}</p>
         <a href="{{ instance.get_absolute_url }}" class="btn btn-primary">View</a>
     </div>
 </div>

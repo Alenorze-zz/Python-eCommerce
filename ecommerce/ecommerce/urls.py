@@ -19,7 +19,7 @@ urlpatterns = [
     url(r'^contact/$', contact_page),
     url(r'^login/$', login_page),
     url(r'^register/$', register_page),
-    url(r'^products/', include("products.urls")),
+    url(r'^products/', include("products.urls", namespace='products')),
     url(r'^admin/', admin.site.urls),
 ]
 

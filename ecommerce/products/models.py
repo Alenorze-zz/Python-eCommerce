@@ -22,26 +22,26 @@ def upload_image_path(instance, filename):
 class ProductQuerySet(models.query.QuerySet):
     def active(self):
         return self.filter(active=True)
-    
+
     def featured(self):
         return self.filter(featured=True, active=True)
 
 
 class ProductManager(models.Manager):
-    def get_by_id(self, id):
-        qs = self.get_query().filter(id=id)
-        if qs.count() == 1:
-            return qs.first()
-        return None
-
     def get_queryset(self):
-        return ProductQuerySet(models.query.QuerySet)
+        return ProductQuerySet(self.model, using=self._db)
 
     def all(self):
         return self.get_queryset().active()
 
-     def featured(self):
+    def featured(self):
         return self.get_queryset().featured()
+
+    def get_by_id(self, id):
+        qs = self.get_queryset().filter(id=id) 
+        if qs.count() == 1:
+            return qs.first()
+        return None
 
 
 class Product(models.Model):
@@ -60,3 +60,10 @@ class Product(models.Model):
 
     def __unicode__(self):
         return self.title
+
+
+def product_pre_save_receiver(sender, instance, *args, **kwargs):
+    if not instance.slug:
+        instance.slug = unique_slug_generator(instance)
+
+pre_save.connect(product_pre_save_receiver, sender=Product)

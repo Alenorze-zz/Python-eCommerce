@@ -5,13 +5,13 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
       <title>Base Template</title>
-      
+
       {% include 'base/css.html' %}
       {% block base_head %}{% endblock %}
     </head>
     <body>
       
-      {% include 'base/navbar.html' %}
+      {% include 'base/navbar.html' with brand_name='eCommerce'%}
       {% block content %}{% endblock %}
 
 

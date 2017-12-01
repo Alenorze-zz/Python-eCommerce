@@ -31,6 +31,13 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="carts\admin.py" />
+    <Compile Include="carts\apps.py" />
+    <Compile Include="carts\migrations\__init__.py" />
+    <Compile Include="carts\models.py" />
+    <Compile Include="carts\tests.py" />
+    <Compile Include="carts\views.py" />
+    <Compile Include="carts\__init__.py" />
     <Compile Include="manage.py" />
     <Compile Include="ecommerce\__init__.py" />
     <Compile Include="ecommerce\settings.py" />
@@ -59,6 +66,9 @@
     <Compile Include="tags\__init__.py" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="carts\" />
+    <Folder Include="carts\migrations\" />
+    <Folder Include="carts\templates\" />
     <Folder Include="ecommerce\" />
     <Folder Include="products\" />
     <Folder Include="products\migrations\" />
@@ -70,6 +80,7 @@
     <Folder Include="tags\migrations\" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="carts\templates\index.html" />
     <Content Include="products\templates\index.html" />
     <Content Include="requirements.txt" />
     <Content Include="search\templates\index.html" />

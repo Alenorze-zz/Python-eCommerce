@@ -4,20 +4,15 @@ from django.conf.urls import url, include
 from django.contrib import admin
 
 from .views import home_page, about_page, contact_page, login_page, register_page
-from products.views import (
-    ProductListView, 
-    ProductDetailView,
-    ProductDetailSlugView,
-    ProductFeaturedListView, 
-    ProductFeaturedDetailView
-) 
+from carts.views import CartHomeView
 
 
 urlpatterns = [
     url(r'^$', home_page, name='home'),
     url(r'^about/$', about_page, name='about'),
     url(r'^contact/$', contact_page, name='contact'),
-    url(r'^login/$', login_page, name='login'),
+    url(r'^login/$', CartHomeView.as_view(), name='login'),
+    url(r'^cart/$', register_page, name='register'),
     url(r'^register/$', register_page, name='register'),
     url(r'^products/', include("products.urls", namespace='products')),
     url(r'^search/', include("search.urls", namespace='search')),

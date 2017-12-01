@@ -50,6 +50,13 @@
     <Compile Include="search\tests.py" />
     <Compile Include="search\views.py" />
     <Compile Include="search\__init__.py" />
+    <Compile Include="tags\admin.py" />
+    <Compile Include="tags\apps.py" />
+    <Compile Include="tags\migrations\__init__.py" />
+    <Compile Include="tags\models.py" />
+    <Compile Include="tags\tests.py" />
+    <Compile Include="tags\views.py" />
+    <Compile Include="tags\__init__.py" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="ecommerce\" />
@@ -59,6 +66,8 @@
     <Folder Include="search\" />
     <Folder Include="search\migrations\" />
     <Folder Include="search\templates\" />
+    <Folder Include="tags\" />
+    <Folder Include="tags\migrations\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="products\templates\index.html" />

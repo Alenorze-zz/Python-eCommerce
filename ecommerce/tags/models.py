@@ -8,7 +8,7 @@ from products.utils import unique_slug_generator
 
 class Tag(models.Model):
     title       = models.CharField(max_length=120)
-    slug        = models.SlugField()
+    slug        = models.SlugField(blank=True, unique=True)
     timestamp   = models.DateTimeField(auto_now_add=True, auto_now=False)
     active      = models.BooleanField(default=True)
     products    = models.ManyToManyField(Product, blank=True)

@@ -2,6 +2,7 @@ from django.shortcuts import render
 
 
 def cart_home(request):
-    request.session['cart_id'] = 12
-    request.session['user'] = request.user.username
+    cart_id = request.session.get("cart_id", None)
+    if cart_id is None:
+        request.session['cart_id'] = 12
     return render(request, "carts/home.html", {})

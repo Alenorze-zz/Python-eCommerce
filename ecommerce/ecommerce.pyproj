@@ -43,16 +43,27 @@
     <Compile Include="products\tests.py" />
     <Compile Include="products\views.py" />
     <Compile Include="products\__init__.py" />
+    <Compile Include="search\admin.py" />
+    <Compile Include="search\apps.py" />
+    <Compile Include="search\migrations\__init__.py" />
+    <Compile Include="search\models.py" />
+    <Compile Include="search\tests.py" />
+    <Compile Include="search\views.py" />
+    <Compile Include="search\__init__.py" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="ecommerce\" />
     <Folder Include="products\" />
     <Folder Include="products\migrations\" />
     <Folder Include="products\templates\" />
+    <Folder Include="search\" />
+    <Folder Include="search\migrations\" />
+    <Folder Include="search\templates\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="products\templates\index.html" />
     <Content Include="requirements.txt" />
+    <Content Include="search\templates\index.html" />
   </ItemGroup>
   <ItemGroup>
     <None Include="readme.html">

@@ -1,6 +1,7 @@
 from django.shortcuts import render
-from django.views.generic import ListView, DetailView
 
-class CartHomeView(DetailView):
-    # queryset = Product.objects.all().featured()
-    template_name = "products/featured-detail.html"
+
+def cart_home(request):
+    request.session['cart_id'] = 12
+    request.session['user'] = request.user.username
+    return render(request, "carts/home.html", {})

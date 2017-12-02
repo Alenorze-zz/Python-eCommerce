@@ -43,6 +43,13 @@
     <Compile Include="ecommerce\settings.py" />
     <Compile Include="ecommerce\urls.py" />
     <Compile Include="ecommerce\wsgi.py" />
+    <Compile Include="orders\admin.py" />
+    <Compile Include="orders\apps.py" />
+    <Compile Include="orders\migrations\__init__.py" />
+    <Compile Include="orders\models.py" />
+    <Compile Include="orders\tests.py" />
+    <Compile Include="orders\views.py" />
+    <Compile Include="orders\__init__.py" />
     <Compile Include="products\admin.py" />
     <Compile Include="products\apps.py" />
     <Compile Include="products\migrations\__init__.py" />
@@ -70,6 +77,9 @@
     <Folder Include="carts\migrations\" />
     <Folder Include="carts\templates\" />
     <Folder Include="ecommerce\" />
+    <Folder Include="orders\" />
+    <Folder Include="orders\migrations\" />
+    <Folder Include="orders\templates\" />
     <Folder Include="products\" />
     <Folder Include="products\migrations\" />
     <Folder Include="products\templates\" />
@@ -81,6 +91,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="carts\templates\index.html" />
+    <Content Include="orders\templates\index.html" />
     <Content Include="products\templates\index.html" />
     <Content Include="requirements.txt" />
     <Content Include="search\templates\index.html" />

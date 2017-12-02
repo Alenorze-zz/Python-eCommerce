@@ -38,6 +38,13 @@
     <Compile Include="accounts\tests.py" />
     <Compile Include="accounts\views.py" />
     <Compile Include="accounts\__init__.py" />
+    <Compile Include="billing\admin.py" />
+    <Compile Include="billing\apps.py" />
+    <Compile Include="billing\migrations\__init__.py" />
+    <Compile Include="billing\models.py" />
+    <Compile Include="billing\tests.py" />
+    <Compile Include="billing\views.py" />
+    <Compile Include="billing\__init__.py" />
     <Compile Include="carts\admin.py" />
     <Compile Include="carts\apps.py" />
     <Compile Include="carts\migrations\__init__.py" />
@@ -83,6 +90,9 @@
     <Folder Include="accounts\" />
     <Folder Include="accounts\migrations\" />
     <Folder Include="accounts\templates\" />
+    <Folder Include="billing\" />
+    <Folder Include="billing\migrations\" />
+    <Folder Include="billing\templates\" />
     <Folder Include="carts\" />
     <Folder Include="carts\migrations\" />
     <Folder Include="carts\templates\" />
@@ -101,6 +111,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="accounts\templates\index.html" />
+    <Content Include="billing\templates\index.html" />
     <Content Include="carts\templates\index.html" />
     <Content Include="orders\templates\index.html" />
     <Content Include="products\templates\index.html" />

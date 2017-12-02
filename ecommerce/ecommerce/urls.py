@@ -2,8 +2,10 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.conf.urls import url, include
 from django.contrib import admin
+from django.contrib.auth.views import LogoutView
 
-from .views import home_page, about_page, contact_page, login_page, register_page
+from accounts.views import login_page, register_page
+from .views import home_page, about_page, contact_page
 from carts.views import cart_home
 
 
@@ -12,6 +14,7 @@ urlpatterns = [
     url(r'^about/$', about_page, name='about'),
     url(r'^contact/$', contact_page, name='contact'),
     url(r'^login/$', cart_home, name='login'),
+    url(r'^logout/$', LogoutView.as_view(), name='logout'),
     url(r'^cart/', include("carts.urls", namespace="cart")),
     url(r'^register/$', register_page, name='register'),
     url(r'^products/', include("products.urls", namespace='products')),

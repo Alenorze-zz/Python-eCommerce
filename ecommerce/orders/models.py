@@ -1,6 +1,6 @@
 import math
 from django.db import models
-from dajngo.db.models.signals import pre_save, post_save
+from django.db.models.signals import pre_save, post_save
 
 from carts.models import Cart
 from ecommerce.utils import unique_order_id_generator

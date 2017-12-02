@@ -31,6 +31,13 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="accounts\admin.py" />
+    <Compile Include="accounts\apps.py" />
+    <Compile Include="accounts\migrations\__init__.py" />
+    <Compile Include="accounts\models.py" />
+    <Compile Include="accounts\tests.py" />
+    <Compile Include="accounts\views.py" />
+    <Compile Include="accounts\__init__.py" />
     <Compile Include="carts\admin.py" />
     <Compile Include="carts\apps.py" />
     <Compile Include="carts\migrations\__init__.py" />
@@ -73,6 +80,9 @@
     <Compile Include="tags\__init__.py" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="accounts\" />
+    <Folder Include="accounts\migrations\" />
+    <Folder Include="accounts\templates\" />
     <Folder Include="carts\" />
     <Folder Include="carts\migrations\" />
     <Folder Include="carts\templates\" />
@@ -90,6 +100,7 @@
     <Folder Include="tags\migrations\" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="accounts\templates\index.html" />
     <Content Include="carts\templates\index.html" />
     <Content Include="orders\templates\index.html" />
     <Content Include="products\templates\index.html" />

@@ -20,8 +20,8 @@ class BillingProfileManager(models.Manager):
         elif guest_email_id is not None:
             'guest user checkout; auto reloads payment stuff'
             guest_email_obj = GuestEmail.objects.get(id=guest_email_id)
-            obj, created = GuestEmail.objects.get_or_create(
-                                                            email=guest_email_obj.email)
+            obj, created = self.model.objects.get_or_create(
+                                            email=guest_email_obj.email)
         else:
             pass
         return obj, created
@@ -33,6 +33,8 @@ class BillingProfile(models.Model):
     active    = models.BooleanField(default=True)
     update    = models.DateTimeField(auto_now=True, auto_now_add=False)
     timestamp = models.DateTimeField(auto_now=False, auto_now_add=True)
+
+    objects = BillingProfileManager()
 
     def __str__(self):
         return self.email

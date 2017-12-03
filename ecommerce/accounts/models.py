@@ -1,3 +1,11 @@
 from django.db import models
 
-# Create your models here.
+class GuestEmail(models.Model):
+    email     = models.EmailField()
+    active    = models.BooleanField(default=True)
+    update    = models.DateTimeField(auto_add=True, auto_add_now=False)
+    timestamp = models.DateTimeField(auto_add=False, auto_add_now=True)
+    
+    def __str__(self):
+        return self.email
+    

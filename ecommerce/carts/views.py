@@ -44,7 +44,7 @@ def checkout_home(request):
     billing_profile = None
     login_form = LoginForm()
     if user.is_authenticated():
-        billing_profile, billing_profile_created = BillingProfile.object.get_or_create(user=user, email=user.email)
+        billing_profile, billing_profile_created = BillingProfile.objects.get_or_create(user=user, email=user.email)
     context = {
         "object": order_obj,
         "billing_profile": billing_profile,

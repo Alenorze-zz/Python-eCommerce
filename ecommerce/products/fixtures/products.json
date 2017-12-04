@@ -1,0 +1,30 @@
+[
+{
+    "model": "products.product",
+    "pk": 1,
+    "fields": {
+        "title": "Wallet",
+        "slug": "wallet",
+        "description": "100% leather",
+        "price": "29.89",
+        "image": "products/2644734671/2644734671.jpeg",
+        "active": true,
+        "featured": false,
+        "timestamp": "2017-12-01T12:40:24.134Z"
+    }
+},
+{
+    "model": "products.product",
+    "pk": 2,
+    "fields": {
+        "title": "Bag",
+        "slug": "bag",
+        "description": "80% leather, 20% canvas",
+        "price": "142.29",
+        "image": "products/3125246526/3125246526.jpg",
+        "active": true,
+        "featured": false,
+        "timestamp": "2017-12-01T12:41:31.823Z"
+    }
+}
+]

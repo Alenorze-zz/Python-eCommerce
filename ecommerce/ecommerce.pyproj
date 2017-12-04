@@ -45,6 +45,13 @@
     <Compile Include="addresses\tests.py" />
     <Compile Include="addresses\views.py" />
     <Compile Include="addresses\__init__.py" />
+    <Compile Include="analytics\admin.py" />
+    <Compile Include="analytics\apps.py" />
+    <Compile Include="analytics\migrations\__init__.py" />
+    <Compile Include="analytics\models.py" />
+    <Compile Include="analytics\tests.py" />
+    <Compile Include="analytics\views.py" />
+    <Compile Include="analytics\__init__.py" />
     <Compile Include="billing\admin.py" />
     <Compile Include="billing\apps.py" />
     <Compile Include="billing\migrations\__init__.py" />
@@ -100,6 +107,9 @@
     <Folder Include="addresses\" />
     <Folder Include="addresses\migrations\" />
     <Folder Include="addresses\templates\" />
+    <Folder Include="analytics\" />
+    <Folder Include="analytics\migrations\" />
+    <Folder Include="analytics\templates\" />
     <Folder Include="billing\" />
     <Folder Include="billing\migrations\" />
     <Folder Include="billing\templates\" />
@@ -122,6 +132,7 @@
   <ItemGroup>
     <Content Include="accounts\templates\index.html" />
     <Content Include="addresses\templates\index.html" />
+    <Content Include="analytics\templates\index.html" />
     <Content Include="billing\templates\index.html" />
     <Content Include="carts\templates\index.html" />
     <Content Include="orders\templates\index.html" />

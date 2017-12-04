@@ -22,17 +22,15 @@
         <script>
           $(document).ready(function(){
             var searchForm = $(".search-form")
-            var searchInput = searchForm.find("[name='q']") // input name='q'
+            var searchInput = searchForm.find("[name='q']") 
             var typingTimer;
-            var typingInterval = 500 // .5 seconds
+            var typingInterval = 500 
             var searchBtn = searchForm.find("[type='submit']")
             searchInput.keyup(function(event){
-              // key released
               clearTimeout(typingTimer)
               typingTimer = setTimeout(perfomSearch, typingInterval)
             })
             searchInput.keydown(function(event){
-              // key pressed
               clearTimeout(typingTimer)
             })
             function displaySearching(){
@@ -46,12 +44,10 @@
                 window.location.href='/search/?q=' + query
               }, 1000)
             }
-            var productForm = $(".form-product-ajax") // #form-product-ajax
+            var productForm = $(".form-product-ajax")
             productForm.submit(function(event){
                 event.preventDefault();
-                // console.log("Form is not sending")
                 var thisForm = $(this)
-                // var actionEndpoint = thisForm.attr("action"); // API Endpoint
                 var actionEndpoint = thisForm.attr("data-endpoint")
                 var httpMethod = thisForm.attr("method");
                 var formData = thisForm.serialize();
@@ -74,9 +70,12 @@
                     }
                   },
                   error: function(errorData){
-                    console.log("error")
-                    console.log(errorData)
-                  }
+                    $.alert({
+                      title: "Oops!",
+                      content: "An error occurred",
+                      theme: "modern",
+                      })
+                    }
                 })
             })
             function refreshCart(){

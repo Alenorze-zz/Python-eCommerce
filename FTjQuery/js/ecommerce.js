@@ -169,7 +169,6 @@ $(document).ready(function(){
               console.log(value)
               var newCartItemRemove = hiddenCartItemRemoveForm.clone()
               newCartItemRemove.css("display", "block")
-              // newCartItemRemove.removeClass("hidden-class")
               newCartItemRemove.find(".cart-item-product-id").val(value.id)
                 cartBody.prepend("<tr><th scope=\"row\">" + i + "</th><td><a href='" + value.url + "'>" + value.name + "</a>" + newCartItemRemove.html() + "</td><td>" + value.price + "</td></tr>")
                 i --

@@ -1,0 +1,1 @@
+X:\Projects\Backend\Django\ecommerce\ecommerce\obj\Debug\ecommerce.pyproj.CoreCompileInputs.cache

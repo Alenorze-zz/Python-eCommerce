@@ -7,7 +7,7 @@ from accounts.models import GuestEmail
 
 User = settings.AUTH_USER_MODEL
 
-stripe.api_key = "pk_test_D8FSbsJiS8Lfk8sVGdyxOJf1"
+stripe.api_key = "sk_test_hlp4fgMTihQnCQkWp5bj2Suw"
 
 
 class BillingProfileManager(models.Manager):
@@ -36,7 +36,7 @@ class BillingProfile(models.Model):
     active      = models.BooleanField(default=True)
     update      = models.DateTimeField(auto_now=True, auto_now_add=False)
     timestamp   = models.DateTimeField(auto_now=False, auto_now_add=True)
-    customer_id = models.Charfield(max_length=120, null=True, blank=True)
+    customer_id = models.CharField(max_length=120, null=True, blank=True)
 
     objects = BillingProfileManager()
 

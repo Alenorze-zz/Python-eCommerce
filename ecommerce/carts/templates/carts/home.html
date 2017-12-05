@@ -13,36 +13,36 @@
       <th>Product Price</th>
     </tr>
   </thead>
-  <tbody class="cart-body">
+  <tbody class='cart-body'>
     {% for product in cart.products.all %}
-    <tr class="cart-product">
+    <tr class='cart-product'>
       <th scope="row">{{ forloop.counter }}</th>
       <td><a href='{{ product.get_absolute_url }}'>{{ product.title }}</a> 
-
-
-        {% include 'carts/snippets/remove-product.html' with product_id=product_id %}
+        {% include 'carts/snippets/remove-product.html' with product_id=product.id %}
       </td>
       <td>{{ product.price }}</td>
     </tr>
     {% endfor %}
     <tr>
       <td colspan="2"></td>
-      <td><b>Subtotal</b> $<span class="cart-subtotal">{{ cart.subtotal }}</span></td>
+      <td><b>Subtotal</b> $<span class='cart-subtotal'>{{ cart.subtotal }}</span></td>
     </tr>
     <tr>
       <td colspan="2"></td>
-      <td><b>Total</b> $<span class="cart-total"></span>{{ cart.total }}</span></td>
+      <td><b>Total</b> $<span class='cart-total'>{{ cart.total }}</span></td>
     </tr>
     <tr>
       <td colspan="2"></td>
-      <td><a href="{% url 'cart:checkout' %}">Checkout</a></td>
+      <td><a class='btn btn-lg btn-success' href='{% url "cart:checkout" %}'>Checkout</a></td>
     </tr>
+
   </tbody>
 </table>
 
-<div class="cart-item-remove-form" style="display:none">
-  {% include 'carts/snippets/remove-product.html' %}
-</div>
+<div class='cart-item-remove-form' style='display:none'>
+
+    {% include 'carts/snippets/remove-product.html' %}
+  </div>
 
 {% else %}
 <p class='lead'>Cart is empty</p>

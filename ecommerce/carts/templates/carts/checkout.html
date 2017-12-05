@@ -6,13 +6,13 @@
     <div class='row text-center'>
     <div class='col-12 col-md-6'>
         <p class='lead'>Login</p>
-        {% include 'accounts/snippets/form.html' with form=login_form next_url=request.build_absolute_url %}
+        {% include 'accounts/snippets/form.html' with form=login_form next_url=request.build_absolute_uri %}
     </div>
     <div class='col-12 col-md-6'> 
         Continue as Guest
 
         {% url "guest_register" as guest_register_url %}
-        {% include 'accounts/snippets/form.html' with form=guest_form next_url=request.build_absolute_url action_url=guest_register_url %}
+        {% include 'accounts/snippets/form.html' with form=guest_form next_url=request.build_absolute_uri action_url=guest_register_url %}
     </div>
 
     </div>
@@ -32,14 +32,14 @@
            
 
                     {% url "checkout_address_create" as checkout_address_create %}
-                    {% include 'addresses/form.html' with form=address_form next_url=request.build_absolute_url action_url=checkout_address_create address_type='shipping' %}'
+                    {% include 'addresses/form.html' with form=address_form next_url=request.build_absolute_uri action_url=checkout_address_create address_type='shipping' %}'
 
 
 
              </div>
          <div class='col-6'>
             {% url 'checkout_address_reuse' as checkout_address_reuse %}
-            {% include 'addresses/prev_addresses.html' with address_qs=address_qs next_url=request.build_absolute_url address_type='shipping' action_url=checkout_address_reuse %}
+            {% include 'addresses/prev_addresses.html' with address_qs=address_qs next_url=request.build_absolute_uri address_type='shipping' action_url=checkout_address_reuse %}
             </div>
         </div>
 
@@ -53,11 +53,11 @@
             <div class='col-6'>
                
             {% url "checkout_address_create" as checkout_address_create %}
-            {% include 'addresses/form.html' with form=address_form next_url=request.build_absolute_url action_url=checkout_address_create address_type='billing' %}
+            {% include 'addresses/form.html' with form=address_form next_url=request.build_absolute_uri action_url=checkout_address_create address_type='billing' %}
             </div>
               <div class='col-6'>
                 {% url 'checkout_address_reuse' as checkout_address_reuse %}
-             {% include 'addresses/prev_addresses.html' with address_qs=address_qs next_url=request.build_absolute_url  address_type='billing' action_url=checkout_address_reuse %}
+             {% include 'addresses/prev_addresses.html' with address_qs=address_qs next_url=request.build_absolute_uri  address_type='billing' action_url=checkout_address_reuse %}
          </div>
 
          
@@ -65,7 +65,6 @@
         {% else %}
 
             <h1>Finalize Checkout</h1>
-
             <p>Cart Items: {% for product in object.cart.products.all %}{{ product }}{% if not forloop.last %}, {% endif %}{% endfor %}</p>
             <p>Shipping Address: {{ object.shipping_address.get_address }}</p>
             <p>Billing Address: {{ object.shipping_address.get_address }}</p>

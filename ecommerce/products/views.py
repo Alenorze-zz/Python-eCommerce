@@ -1,9 +1,11 @@
-from django.shortcuts import render, get_object_or_404
-from django.views.generic import ListView, DetailView
 from django.http import Http404
+from django.views.generic import ListView, DetailView
+from django.shortcuts import render, get_object_or_404
 
 from analytics.mixins import ObjectViewedMixin
+
 from carts.models import Cart
+
 from .models import Product
 
 
@@ -21,7 +23,6 @@ class ProductFeaturedDetailView(ObjectViewedMixin, DetailView):
 
 
 class ProductListView(ListView):
-    queryset = Product.objects.all()
     template_name = "products/list.html"
 
     def get_context_data(self, *args, **kwargs):
@@ -33,7 +34,7 @@ class ProductListView(ListView):
     def get_queryset(self, *args, **kwargs):
         request = self.request
         return Product.objects.all()
-    
+
 
 class ProductDetailSlugView(ObjectViewedMixin, DetailView):
     queryset = Product.objects.all()
@@ -57,8 +58,8 @@ class ProductDetailSlugView(ObjectViewedMixin, DetailView):
             instance = qs.first()
         except:
             raise Http404("Uhhmmm ")
-        # object_viewed_signal.send(instance.__class__, instance=instance, request=request)
         return instance
+
 
 
 class ProductDetailView(ObjectViewedMixin, DetailView):
@@ -67,13 +68,11 @@ class ProductDetailView(ObjectViewedMixin, DetailView):
     def get_context_data(self, *args, **kwargs):
         context = super(ProductDetailView, self).get_context_data(*args, **kwargs)
         return context
-    
+
     def get_object(self, *args, **kwargs):
         request = self.request
         pk = self.kwargs.get('pk')
         instance = Product.objects.get_by_id(pk)
         if instance is None:
             raise Http404("Product doesn't exist")
-        raise instance
-
-
+        return instance

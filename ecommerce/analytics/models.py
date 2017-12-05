@@ -88,14 +88,14 @@ if FORCE_INACTIVE_USER_ENDSESSION:
     post_save.connect(post_save_user_changer_receiver, sender=User)
 
 
-def user_logged_in_receiver(sender, instance, created, *args, **kwargs):
+def user_logged_in_receiver(sender, instance, request, *args, **kwargs):
     user = instance
     ip_address = get_client_ip(request)
     session_key = request.session.session_key
     UserSession.objects.create(
-            user = request.user,
-            ip_address = ip_address,
-            session_key = session_key
+            user=user,
+            ip_address=ip_address,
+            session_key=session_key
         )
 
 user_logged_in.connect(user_logged_in_receiver)

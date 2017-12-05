@@ -1,13 +1,13 @@
+import stripe
 from django.db import models
 from django.conf import settings
-from django.db.models.signals import post_save
+from django.db.models.signals import post_save, pre_save
 
 from accounts.models import GuestEmail
 
 User = settings.AUTH_USER_MODEL
 
-# import stripe
-# stripe.api_key = "sk_test_cu1lQmcg1OLffhLvYrSCp5XE"
+stripe.api_key = "pk_test_D8FSbsJiS8Lfk8sVGdyxOJf1"
 
 
 class BillingProfileManager(models.Manager):
@@ -31,11 +31,12 @@ class BillingProfileManager(models.Manager):
     
 
 class BillingProfile(models.Model):
-    user      = models.OneToOneField(User, null=True, blank=True)
-    email     = models.EmailField()
-    active    = models.BooleanField(default=True)
-    update    = models.DateTimeField(auto_now=True, auto_now_add=False)
-    timestamp = models.DateTimeField(auto_now=False, auto_now_add=True)
+    user        = models.OneToOneField(User, null=True, blank=True)
+    email       = models.EmailField()
+    active      = models.BooleanField(default=True)
+    update      = models.DateTimeField(auto_now=True, auto_now_add=False)
+    timestamp   = models.DateTimeField(auto_now=False, auto_now_add=True)
+    customer_id = models.Charfield(max_length=120, null=True, blank=True)
 
     objects = BillingProfileManager()
 
@@ -43,11 +44,18 @@ class BillingProfile(models.Model):
         return self.email
 
 
+def billing_profile_created_receiver(sender, instance, *args, **kwargs):
+    if not instance.customer_id and instance.email:
+        customer = srtipe.Customer.create(
+            email = instance.email
+        )
+        instance.customer_id = customer.id
+
+pre_save.connect(billing_profile_created_receiver, sender=BillingProfile)
+
+
 def user_created_receiver(sender, instance, created, *args, **kwargs):
     if created and instance.email:
         BillingProfile.objects.get_or_create(user=instance, email=instance.email)
 
 post_save.connect(user_created_receiver, sender=User)
-
-    
-

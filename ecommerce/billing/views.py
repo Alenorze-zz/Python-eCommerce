@@ -18,5 +18,5 @@ def payment_method_view(request):
 
 def payment_method_createview(request):
     if request.method == "POST" and request.is_ajax():
-        return JsonResponse({"message": "Done"})
+        return JsonResponse({"message": "Your card wad added."})
     return HttpResponse("error", status_code=401)

@@ -9,6 +9,9 @@ STRIPE_PUB_KEY = 'pk_test_D8FSbsJiS8Lfk8sVGdyxOJf1'
 
 
 def payment_method_view(request):
+    billing_profile, billing_profile_created = BillingProfile.objects.new_or_get(request)
+    if not billing_profile:
+        return redirect("/cart")
     next_url = None
     next_ = request.GET.get('next')
     if is_safe_url(next_, request.get_host()):
@@ -18,5 +21,12 @@ def payment_method_view(request):
 
 def payment_method_createview(request):
     if request.method == "POST" and request.is_ajax():
+        billing_profile, billing_profile_created = BillingProfile.objects.new_or_get(request)
+        if not billing_profile:
+            return HttpResponse({"message": "Cannot find this user"}, status_code=401)
+        token = request.POST.get("token")
+        if token if not None:
+            customer = stripe.Customer.retrieve(billing_profile.customer_id)
+            card_response = customer.sources.create(source=token)
         return JsonResponse({"message": "Your card wad added."})
     return HttpResponse("error", status_code=401)

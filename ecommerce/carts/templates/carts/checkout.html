@@ -62,6 +62,8 @@
 
          
         </div>
+        {% if not has_card %}
+        <div class='stripe-payment-form' data-token='{{ publish_key }}' data-next-url='{{ request.build_absolute_uri }}' data-btn-title='Add Payment Method'></div>
         {% else %}
 
             <h1>Finalize Checkout</h1>

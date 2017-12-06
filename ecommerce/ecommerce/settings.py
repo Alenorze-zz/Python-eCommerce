@@ -46,7 +46,8 @@ INSTALLED_APPS = [
     'tags',
     'accounts',
     'addresses',
-    'analytics'
+    'analytics',
+    'marketing'
 ]
 
 AUTH_USER_MODEL = 'accounts.User'

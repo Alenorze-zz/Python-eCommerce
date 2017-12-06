@@ -1,10 +1,10 @@
 from django.shortcuts import render, redirect
 from django.utils.http import is_safe_url
+# CRUD create update retrieve delete
 
 from billing.models import BillingProfile
 from .forms import AddressForm
 from .models import Address
-
 
 def checkout_address_create_view(request):
     form = AddressForm(request.POST or None)

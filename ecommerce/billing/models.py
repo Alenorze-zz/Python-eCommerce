@@ -1,13 +1,14 @@
-import stripe
-from django.db import models
 from django.conf import settings
+from django.db import models
 from django.db.models.signals import post_save, pre_save
 
 from accounts.models import GuestEmail
-
 User = settings.AUTH_USER_MODEL
 
-stripe.api_key = "sk_test_hlp4fgMTihQnCQkWp5bj2Suw"
+
+import stripe
+stripe.api_key = "sk_test_cu1lQmcg1OLffhLvYrSCp5XE"
+
 
 
 class BillingProfileManager(models.Manager):
@@ -28,27 +29,28 @@ class BillingProfileManager(models.Manager):
         else:
             pass
         return obj, created
-    
 
 class BillingProfile(models.Model):
     user        = models.OneToOneField(User, null=True, blank=True)
     email       = models.EmailField()
     active      = models.BooleanField(default=True)
-    update      = models.DateTimeField(auto_now=True, auto_now_add=False)
-    timestamp   = models.DateTimeField(auto_now=False, auto_now_add=True)
+    update      = models.DateTimeField(auto_now=True)
+    timestamp   = models.DateTimeField(auto_now_add=True)
     customer_id = models.CharField(max_length=120, null=True, blank=True)
+    # customer_id in Stripe or Braintree
 
     objects = BillingProfileManager()
 
     def __str__(self):
         return self.email
 
-
 def billing_profile_created_receiver(sender, instance, *args, **kwargs):
     if not instance.customer_id and instance.email:
-        customer = srtipe.Customer.create(
-            email = instance.email
-        )
+        print("ACTUAL API REQUEST Send to stripe/braintree")
+        customer = stripe.Customer.create(
+                email = instance.email
+            )
+        print(customer)
         instance.customer_id = customer.id
 
 pre_save.connect(billing_profile_created_receiver, sender=BillingProfile)
@@ -63,15 +65,15 @@ post_save.connect(user_created_receiver, sender=User)
 
 class CardManager(models.Manager):
     def add_new(self, billing_profile, stripe_card_response):
-        if srt(stripe_card_response.object) == 'card':
+        if str(stripe_card_response.object) == "card":
             new_card = self.model(
-                    billing_profile = billing_profile,
-                    stripe_id       = stripe_card_response.id,
-                    brand           = stripe_card_response.brand,
-                    country         = stripe_card_response.country,
-                    exp_month       = stripe_card_response.exp_month,
-                    exp_year        = stripe_card_response.exp_year,
-                    last4           = stripe_card_response.last4
+                    billing_profile=billing_profile,
+                    stripe_id = stripe_card_response.id,
+                    brand = stripe_card_response.brand,
+                    country = stripe_card_response.country,
+                    exp_month = stripe_card_response.exp_month,
+                    exp_year = stripe_card_response.exp_year,
+                    last4 = stripe_card_response.last4
                 )
             new_card.save()
             return new_card
@@ -79,14 +81,14 @@ class CardManager(models.Manager):
 
 
 class Card(models.Model):
-    billing_profile = models.ForeignKey(BillingProfile)
-    stripe_id       = models.CharField(max_length=120)
-    brand           = models.CharField(max_length=120, null=True, blank=True)
-    country         = models.CharField(max_length=120, null=True, blank=True)
-    exp_month       = models.IntegerField(null=True, blank=True)
-    exp_year        = models.IntegerField(null=True, blank=True)
-    last4           = models.CharField(max_length=4, null=True, blank=True)
-    default         = models.BooleanField(default=True)
+    billing_profile         = models.ForeignKey(BillingProfile)
+    stripe_id               = models.CharField(max_length=120)
+    brand                   = models.CharField(max_length=120, null=True, blank=True)
+    country                 = models.CharField(max_length=20, null=True, blank=True)
+    exp_month               = models.IntegerField(null=True, blank=True)
+    exp_year                = models.IntegerField(null=True, blank=True)
+    last4                   = models.CharField(max_length=4, null=True, blank=True)
+    default                 = models.BooleanField(default=True)
 
     objects = CardManager()
 

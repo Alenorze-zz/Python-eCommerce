@@ -1,10 +1,13 @@
 from django.http import JsonResponse
 from django.shortcuts import render, redirect
 
+
 from accounts.forms import LoginForm, GuestForm
 from accounts.models import GuestEmail
+
 from addresses.forms import AddressForm
 from addresses.models import Address
+
 from billing.models import BillingProfile
 from orders.models import Order
 from products.models import Product
@@ -43,17 +46,19 @@ def cart_update(request):
             cart_obj.products.remove(product_obj)
             added = False
         else:
-            cart_obj.products.add(product_obj) 
+            cart_obj.products.add(product_obj) # cart_obj.products.add(product_id)
             added = True
         request.session['cart_items'] = cart_obj.products.count()
-        if request.is_ajax(): 
+        # return redirect(product_obj.get_absolute_url())
+        if request.is_ajax(): # Asynchronous JavaScript And XML / JSON
             print("Ajax request")
             json_data = {
                 "added": added,
                 "removed": not added,
                 "cartItemCount": cart_obj.products.count()
             }
-            return JsonResponse(json_data, status=200)
+            return JsonResponse(json_data, status=200) # HttpResponse
+            # return JsonResponse({"message": "Error 400"}, status=400) # Django Rest Framework
     return redirect("cart:home")
 
 

@@ -55,16 +55,14 @@ def cart_update(request):
             cart_obj.products.add(product_obj) # cart_obj.products.add(product_id)
             added = True
         request.session['cart_items'] = cart_obj.products.count()
-        # return redirect(product_obj.get_absolute_url())
-        if request.is_ajax(): # Asynchronous JavaScript And XML / JSON
+        if request.is_ajax(): 
             print("Ajax request")
             json_data = {
                 "added": added,
                 "removed": not added,
                 "cartItemCount": cart_obj.products.count()
             }
-            return JsonResponse(json_data, status=200) # HttpResponse
-            # return JsonResponse({"message": "Error 400"}, status=400) # Django Rest Framework
+            return JsonResponse(json_data, status=200) 
     return redirect("cart:home")
 
 
@@ -105,6 +103,8 @@ def checkout_home(request):
                 order_obj.mark_paid()
                 request.session['cart_items'] = 0
                 del request.session['cart_id']
+                if not billing_profile.user:
+                    billing_profile.set_cards_inactive()
                 return redirect("cart:success")
             else:
                 return redirect("cart:checkout")

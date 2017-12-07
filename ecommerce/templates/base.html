@@ -13,22 +13,21 @@
       {% include 'base/navbar.html' with brand_name='eCommerce' %}
       <div class='container'>
         {% if messages %}
-        <div class="alert alert-success messages">
+      <div class="alert alert-success messages">
           {% for message in messages %}
-            <span{% if message.tags %} class="{{ message.tags }}"{% endif %}>
-                {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}Important: {% endif %}
-                {{ message }}<br>
-            </span>
+          <span{% if message.tags %} class="{{ message.tags }}"{% endif %}>
+              {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}Important: {% endif %}
+              {{ message }}<br/>
+          </span>
           {% endfor %}
-        </div>
-        {% endfor %}
+      </div>
+      {% endif %}
       {% block content %}{% endblock %}
     </div>
 
         {% include 'base/js.html' %}
         {% block javascript %}
-        
+
         {% endblock %}
-        
     </body>
   </html>

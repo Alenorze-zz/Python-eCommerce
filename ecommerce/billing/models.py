@@ -54,7 +54,7 @@ class BillingProfile(models.Model):
 
     @property
     def has_card(self):
-        card_qs = sefl.get_cards()
+        card_qs = self.get_cards()
         return card_qs.exists()
 
     @property

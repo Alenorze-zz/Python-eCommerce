@@ -3,6 +3,8 @@ from django.contrib.auth.models import (
     AbstractBaseUser,
     BaseUserManager
 )
+from django.core.mail import send_mail
+from django.template.loader import get_template
 
 
 class UserManager(BaseUserManager):
@@ -19,7 +21,7 @@ class UserManager(BaseUserManager):
         user_obj.set_password(password)
         user_obj.staff = is_staff
         user_obj.admin = is_admin
-        user_obj.active = is_active
+        user_obj.is_active = is_active
         user_obj.save(using=self.db)
         return user_obj
 

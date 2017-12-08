@@ -15,6 +15,7 @@ from .views import home_page, about_page, contact_page
 urlpatterns = [
     url(r'^$', home_page, name='home'),
     url(r'^about/$', about_page, name='about'),
+    url(r'^accounts/', include("accounts.urls", namespace='accounts')),
     url(r'^contact/$', contact_page, name='contact'),
     url(r'^login/$', LoginView.as_view(), name='login'),
     url(r'^checkout/address/create/$', checkout_address_create_view, name='checkout_address_create'),

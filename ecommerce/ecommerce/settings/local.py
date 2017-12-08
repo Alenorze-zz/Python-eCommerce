@@ -63,12 +63,13 @@ INSTALLED_APPS = [
     'tags',
 ]
 
-AUTH_USER_MODEL = 'accounts.User' #changes the built-in user model to ours
-
+AUTH_USER_MODEL = 'accounts.User' 
+LOGIN_URL = '/login/'
+LOGIN_URL_REDIRECT = '/'
+LOGOUT_URL = '/logout/'
 
 FORCE_SESSION_TO_ONE = False
 FORCE_INACTIVE_USER_ENDSESSION= False
-
 
 
 MAILCHIMP_API_KEY = os.environ.get("MAILCHIMP_API_KEY")

@@ -25,6 +25,22 @@ DEBUG = False
 ALLOWED_HOSTS = ['.pythonecommerce.com']
 
 
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'alenorze@gmail.com' 
+EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+DEFAULT_FROM_EMAIL = 'Python ecommerce <alenorze@gmail.com>'
+
+
+
+MANAGERS = (
+    ('Alexey Belov', "alenorze@gmail.com"),
+)
+
+ADMINS = MANAGERS
+
+
 # Application definition
 
 INSTALLED_APPS = [

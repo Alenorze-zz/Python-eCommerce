@@ -21,6 +21,20 @@ def unique_order_id_generator(instance):
     return order_new_id
 
 
+def unique_key_generator(instance):
+    """
+    This is for a Django project with an key field
+    """
+    size = random.randint(30, 45)
+    key = random_string_generator(size=size)
+
+    Klass = instance.__class__
+    qs_exists = Klass.objects.filter(key=key).exists()
+    if qs_exists:
+        return unique_slug_generator(instance)
+    return key
+
+
 def unique_slug_generator(instance, new_slug=None):
     if new_slug is not None:
         slug = new_slug

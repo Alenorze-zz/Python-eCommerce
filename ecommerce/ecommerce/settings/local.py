@@ -31,6 +31,7 @@ EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 DEFAULT_FROM_EMAIL = 'Python ecommerce <alenorze@gmail.com>'
 
+BASE_URL = '127.0.0.1:8000'
 
 
 MANAGERS = (

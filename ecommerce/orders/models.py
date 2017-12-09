@@ -1,11 +1,13 @@
 import math
 from django.db import models
+from django.conf import settings
 from django.db.models.signals import pre_save, post_save
 from django.core.urlresolvers import reverse
 
 from addresses.models import Address
 from billing.models import BillingProfile
 from carts.models import Cart
+from products.models import Product
 from ecommerce.utils import unique_order_id_generator
 
 ORDER_STATUS_CHOICES = (
@@ -63,7 +65,7 @@ class Order(models.Model):
     total                  = models.DecimalField(default=0.00, max_digits=100, decimal_places=2)
     active                 = models.BooleanField(default=True)
     updated                = models.DateTimeField(auto_now=True)
-    timestamp             = models.DateTimeField(auto_now_add=True)
+    timestamp              = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return self.order_id
@@ -105,6 +107,11 @@ class Order(models.Model):
         billing_address = self.billing_address
         total   = self.total
         if billing_profile and shipping_done and billing_address and total > 0:
+            return True
+        return False
+
+    def is_paid(self):
+        if self.status == 'paid':
             return True
         return False
 
@@ -152,3 +159,23 @@ def post_save_order(sender, instance, created, *args, **kwargs):
 
 
 post_save.connect(post_save_order, sender=Order)
+
+
+class ProductPurchaseManager(models.Model):
+    def all(self):
+        return self.get_queryset().filter(refunded=False)
+
+
+class ProductPurchase(models.Model):
+    user                   = models.ForeignKey(settings.AUTH_USER_MODEL, blank=True, null=True)
+    billing_profile        = models.ForeignKey(BillingProfile)
+    product                = models.ForeignKey(Product)
+    refunded               = models.BooleanField(default=False)
+    updated                = models.DateTimeField(auto_now=True)
+    timestamp              = models.DateTimeField(auto_now_add=True)
+
+    objects = ProductPurchaseManager()
+
+    def __str__(self):
+        return self.product.title
+    

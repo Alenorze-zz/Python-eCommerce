@@ -7,7 +7,9 @@ from django.views.generic import TemplateView, RedirectView
 
 from accounts.views import LoginView, RegisterView, GuestRegisterView
 from addresses.views import (
+                    AddressCreateView,
                     AddressListView,
+                    AddressUpdateView,
                     checkout_address_create_view,
                     checkout_address_reuse_view
                     )
@@ -24,6 +26,8 @@ urlpatterns = [
     url(r'^account/', include("accounts.urls", namespace='account')),
     url(r'^accounts/', include("accounts.passwords.urls")),
     url(r'^address/$', AddressListView.as_view(), name='addresses'),
+    url(r'^address/create/$', AddressCreateView.as_view(), name='addresses-create'),
+    url(r'^address/(?P<pk>\d+)/$', AddressUpdateView.as_view(), name='addresses-update'),
     url(r'^addresses/$', RedirectView.as_view(url='/addresses')),
     url(r'^contact/$', contact_page, name='contact'),
     url(r'^login/$', LoginView.as_view(), name='login'),

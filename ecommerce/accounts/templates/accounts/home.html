@@ -20,7 +20,7 @@
 
 
 
-<div class='col-12 col-md-3 my-3'>
+<div class='col-12 col-md-3 my-3' id="billing">
     <div class="card">
       <div class="card-body">
         <h4 class="card-title">Billing</h4>
@@ -41,7 +41,7 @@
             <div class='list-group'>
                 <a class='list-group-item' href='{% url "account:user-update" %}'>Update Details</a>
                 <a class='list-group-item' href='{% url "password_change" %}'>Change Password</a>
-                
+                <a class='list-group-item' href='{% url "library" %}'>Library</a>
             </div>
 
       </div>
@@ -54,8 +54,7 @@
       <div class="card-body">
         <h4 class="card-title">Preferences</h4> 
             <div class='list-group'>
-                <a class='list-group-item' href='{% url "marketing-pref" %}'>Email Marketing</a>
-                
+                <a class='list-group-item' href='{% url "marketing-pref" %}'>Email Marketing</a>  
             </div>
 
       </div>

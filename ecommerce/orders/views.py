@@ -4,7 +4,7 @@ from django.http import Http404
 from django.views.generic import ListView, DetailView
 
 from billing.models import BillingProfile
-from .models import Order
+from .models import Order, ProductPurchase
 
 
 class OrderListView(ListView):
@@ -13,7 +13,6 @@ class OrderListView(ListView):
 
 
 class OrderDetailView(LoginRequiredMixin, DetailView):
-    
     def get_object(self):
         qs = Order.objects.by_request(
                 self.request
@@ -23,3 +22,9 @@ class OrderDetailView(LoginRequiredMixin, DetailView):
         if qs.count() == 1:
             return qs.first()
         raise Http404
+
+
+class LibraryView(LoginRequiredMixin, ListView):
+    template_name = 'orders/library.html'
+    def get_queryset(self):
+        return ProductPurchase.objects.by_request(self.request).digital()

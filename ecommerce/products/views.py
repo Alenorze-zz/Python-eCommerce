@@ -19,8 +19,9 @@ class UserProductHistoryView(LoginRequiredMixin, ListView):
 
     def get_queryset(self, *args, **kwargs):
         request = self.request
-        views = request.user.objectviewed_set.by_model(Product)
+        views = request.user.objectviewed_set.by_model(Product, model_queryset=False)
         return views
+
 
 class ProductFeaturedListView(ListView):
     template_name = "products/list.html"

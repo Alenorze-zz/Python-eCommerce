@@ -105,12 +105,37 @@ $(document).ready(function(){
 // Cart + Add Products 
 var productForm = $(".form-product-ajax") // #form-product-ajax
 
-function getOwndeProduct(productId){
-  if (productId == 1) {
-    return true
+  function getOwnedProduct(productId, submitSpan){
+    var actionEndpoint = '/orders/endpoint/verify/ownership/'
+    var httpMethod = 'GET'
+    var data = {
+      product_id: productId
+    }
+
+    var isOwner;
+    $.ajax({
+        url: actionEndpoint,
+        method: httpMethod,
+        data: data,
+        success: function(data){
+          console.log(data)
+          console.log(data.owner)
+          if (data.owner){
+            isOwner = true
+            submitSpan.html("<a class='btn btn-warning' href='/library/'>In Library</a>")
+          } else {
+            isOwner = false
+          }
+        },
+        error: function(error){
+          console.log(error)
+
+        }
+    })
+    return isOwner
+    
   }
-  return false
-}
+  
 
 $.each(productForm, function(index, object){
   var $this = $(this)
@@ -121,10 +146,7 @@ $.each(productForm, function(index, object){
   var productIsDigital = productInput.attr("data-is-digital")
 
   if (productIsDigital && isUser){
-    var isOwned = getOwndeProduct(productId)
-    if (isOwned){
-      submitSpan.html("<a href='/library/'>In Library</a>")
-    }
+    var isOwned = getOwnedProduct(productId, submitSpan)
   }
 })
 

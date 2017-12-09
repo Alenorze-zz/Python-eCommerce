@@ -29,6 +29,7 @@ urlpatterns = [
     url(r'^cart/', include("carts.urls", namespace='cart')),
     url(r'^billing/payment-method/$', payment_method_view, name='billing-payment-method'),
     url(r'^register/$', RegisterView.as_view(), name='register'),
+    url(r'^orders/', include("orders.urls", namespace='orders')),
     url(r'^products/', include("products.urls", namespace='products')),
     url(r'^search/', include("search.urls", namespace='search')),
     url(r'^settings/$', RedirectView.as_view(url='/account')),

@@ -1,6 +1,6 @@
 from django.http import Http404, HttpResponse
 from django.views.generic import ListView, DetailView, View
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 from analytics.mixins import ObjectViewedMixin
@@ -75,6 +75,12 @@ class ProductDetailSlugView(ObjectViewedMixin, DetailView):
         return instance
 
 
+import os
+from wsgiref.util import FileWrapper
+from mimetypes import guess_type
+from django.conf import settings
+
+
 class ProductDownloadView(View):
     def get(self, *args, **kwargs):
         slug = kwargs.get('slug')
@@ -83,8 +89,19 @@ class ProductDownloadView(View):
         if downloads_qs.count() != 1:
             raise Http404('Download not found')
         download_obj = download_qs.first()
-        response = HttpResponse(download_obj.get_download_url())
-        return response
+        file_root = settings.PROTECTED_ROOT
+        filepath = download_obj.file.path
+        final_filepath = os.path.join(file_root, filepath)
+        with open(final_filepath, 'rb') as f:
+            wrapper = FileWrapper(f)
+            mimetype = 'application/force-download'
+            guessed_mimetype = guess_type(filepath)[0]
+            if guessed_mimetype:
+                mimetype = guessed_mimetype
+            response = HttpResponse(wrapper, content_type=mimetype)
+            response['Content-Dispositon'] = "attachment;filename=%s" %(download_obj.name)
+            response['X-SendFile'] = str(download_obj.name)
+            return response
 
 
 class ProductDetailView(ObjectViewedMixin, DetailView):

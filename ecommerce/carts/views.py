@@ -2,13 +2,10 @@ from django.http import JsonResponse
 from django.shortcuts import render, redirect
 from django.conf import settings
 
-
 from accounts.forms import LoginForm, GuestForm
 from accounts.models import GuestEmail
-
 from addresses.forms import AddressCheckoutForm
 from addresses.models import Address
-
 from billing.models import BillingProfile
 from orders.models import Order
 from products.models import Product
@@ -76,6 +73,7 @@ def checkout_home(request):
     guest_form = GuestForm(request=request)
     address_form = AddressCheckoutForm()
     billing_address_id = request.session.get("billing_address_id", None)
+    shipping_address_required = not cart_obj.is_digital
     shipping_address_id = request.session.get("shipping_address_id", None)
 
     billing_profile, billing_profile_created = BillingProfile.objects.new_or_get(request)
@@ -116,7 +114,8 @@ def checkout_home(request):
         "address_form": address_form,
         "address_qs": address_qs,
         "has_card": has_card,
-        "publish_key": STRIPE_PUB_KEY
+        "publish_key": STRIPE_PUB_KEY,
+        "shipping_address_required": shipping_address_required
     }
     return render(request, "carts/checkout.html", context)
 

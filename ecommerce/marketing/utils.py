@@ -25,7 +25,7 @@ def get_subscriber_hash(member_email):
 
 class Mailchimp(object):
     def __init__(self):
-        super(Mailchipt, self).__init__()
+        super(Mailchimp, self).__init__()
         self.key = MAILCHIMP_API_KEY
         self.api_url = "https://{dc}.api.mailchimp.com/3.0".format(dc=MAILCHIMP_DATA_CENTER)
         self.list_id = MAILCHIMP_EMAIL_LIST_ID

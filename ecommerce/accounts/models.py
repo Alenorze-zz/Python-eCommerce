@@ -1,5 +1,6 @@
 from datetime import timedelta
 from django.db import models
+from django.db.models import Q
 from django.contrib.auth.models import (
     AbstractBaseUser,
     BaseUserManager
@@ -29,7 +30,15 @@ class EmailActivationQuerySet(models.query.QuerySet):
                 timestamp__gt=start_range,
                 timestamp__lte=end_range
             )
-
+    
+    def email_exists(self, email):
+        return self.get_queryset().filter(
+                    Q(email=email),
+                    Q(user__email=email)
+                ).filter(
+                    activate=False
+                )
+                
 
 class EmailActivationManager(models.Manager):
     def get_queryset(self):

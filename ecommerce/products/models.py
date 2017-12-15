@@ -119,6 +119,7 @@ def upload_product_file_loc(instance, filename):
 
 class ProductFile(models.Model):
     product       = models.ForeignKey(Product)
+    name          = models.CharField(max_length=120, null=True, blank=True)
     file          = models.FileField(
                         upload_to=upload_product_file_loc,
                         storage=ProtectedS3Storage())
@@ -127,6 +128,13 @@ class ProductFile(models.Model):
 
     def __str__(self):
         return str(self.file.name)
+
+    @property
+    def display_name(self):
+        og_name = get_filename(self.file.name)
+        if self.name:
+            return self.name
+        return get_filename(self.file.name)
 
     def get_default_url(self):
         return self.product.get_absolute_url()
@@ -141,14 +149,11 @@ class ProductFile(models.Model):
         PROTECTED_DIR_NAME = getattr(settings, 'PROTECTED_DIR_NAME', 'protected')
         path = "{base}/{file_path}".format(base=PROTECTED_DIR_NAME, file_path=str(self.file))
         aws_dl_object = AWSDownload(accesss_key, secret_key, bucket, region)
-        file_url = aws_dl_object.generate_url(path)
+        file_url = aws_dl_object.generate_url(path, new_filename=self.display_name)
         return file_url
-    
+
     def get_download_url(self):
         return reverse("products:download",
                     kwargs={"slug": self.product.slug, "pk": self.pk}
                     )
-
-    @property
-    def name(self):
-        return get_filename(self.file.name)
+                    

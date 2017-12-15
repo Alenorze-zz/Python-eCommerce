@@ -4,6 +4,7 @@ import os
 
 from django.conf import settings
 
+from boto.s3.connection import OrdinaryCallingFormat
 
 
 class AWSDownload(object):
@@ -26,6 +27,7 @@ class AWSDownload(object):
                 aws_access_key_id=self.access_key, 
                 aws_secret_access_key=self.secret_key,
                 is_secure=True,
+                calling_format=OrdinaryCallingFormat()
             )
         return conn
 
@@ -63,7 +65,7 @@ class AWSDownload(object):
                     'response-content-type': 'application/force-download',
                     'response-content-disposition':'attachment;filename="%s"'%filename
                 }
-            file_url = key_obj.generate_url(
+            file_url = aws_key_obj.generate_url(
                                 response_headers=headers,
                                  expires_in=self.expires, 
                                 method='GET') 

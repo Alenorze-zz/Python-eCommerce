@@ -18,7 +18,7 @@ from carts.views import cart_detail_api_view
 from marketing.views import MarketingPreferenceUpdateView, MailchimpWebhookView
 from .views import home_page, about_page, contact_page
 from orders.views import LibraryView
-from analytics.views import SalesView
+from analytics.views import SalesView, SalesAjaxView
 
 
 urlpatterns = [
@@ -32,6 +32,7 @@ urlpatterns = [
     url(r'^address/(?P<pk>\d+)/$', AddressUpdateView.as_view(), name='addresses-update'),
     url(r'^addresses/$', RedirectView.as_view(url='/addresses')),
     url(r'^analytics/sales/$', SalesView.as_view(), name='sales-analytics'),
+    url(r'^analytics/sales/data/$', SalesAjaxView.as_view(), name='sales-analytics-data'),
     url(r'^contact/$', contact_page, name='contact'),
     url(r'^login/$', LoginView.as_view(), name='login'),
     url(r'^checkout/address/create/$', checkout_address_create_view, name='checkout_address_create'),

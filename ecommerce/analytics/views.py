@@ -1,11 +1,24 @@
 import datetime
 from django.shortcuts import render
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.http import HttpResponse
-from django.views.generic import TemplateView
+from django.http import HttpResponse, JsonResponse
+from django.views.generic import TemplateView, View
 from django.utils import timezone
 
 from orders.models import Order
+
+
+class SalesAjaxView(View):
+    def get(self, request, *args, **kwargs):
+        data = {}
+        if request.user.is_staff:
+            if requset.GET.get('type')  == 'week':
+                data['labels'] = ["Mon", "Tues", "Weds", "Thurs", "Fri", "Sat", "Sun"]
+                data['data'] = [123, 131, 232, 12, 323,313, 3193]
+            if request.GET.get('type') == '4weeks':
+                data['labels'] = ["Last Week", "Two Weeks Ago", "Three Weeks Ago", "Four Weeks Ago"]
+                data['data'] = [123, 131, 343, 13231]
+        return JsonResponse(data)
 
 
 class SalesView(LoginRequiredMixin, TemplateView):

@@ -1,4 +1,4 @@
 # Python-eCommerce
-[eCommerce Logo](https://i.imgur.com/qpKOfCP.jpg)
+!(https://i.imgur.com/qpKOfCP.jpg)
 eCommerce site from scratch. Fully func.
 

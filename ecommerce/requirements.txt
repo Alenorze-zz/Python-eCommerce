@@ -21,7 +21,7 @@ python-dateutil==2.6.1
 pytz==2017.3
 requests==2.18.4
 s3transfer==0.1.12
-setuptools==38.2.4
+setuptools==65.5.1
 six==1.11.0
 smmap2==2.0.3
 stripe==1.75.3
